@@ -35,6 +35,8 @@ class User extends DBParent{
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
             $password = md5($password);
+            if($password == md5(''))
+                $password = $this->getById($id)->password;
             $stmt->bindParam(':password', $password);
             $stmt->bindParam(':role', $role);
             $stmt->bindParam(':address', $address);

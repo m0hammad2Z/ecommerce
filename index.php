@@ -47,7 +47,7 @@ $trasnaction = new Transaction();
 
 
 // ----------- Transaction -------------
-// $trasnaction->add(1, 10.5, array(new OrderItem(1, 2, 2, 3.2, "This is notes!"), new OrderItem(2, 1, 2, 3.2, "This is notes!")), 'Pending');
+// $trasnaction->add(1, 10.5, array(new OrderItem(1, 2, 2, 3.2, "This is notes!"), new OrderItem(2, 1, 2, 3.2, "This is notes!")), rand(0, 2) == 0 ? 'Pending' : (rand(0, 2) == 1 ? 'Accepted' : 'Rejected'));
 // $trasnaction->update(1, 1, 10, array(new OrderItem(1, 2, 2, 3.2, "This is notes! changed"), new OrderItem(1, 2, 2, 3.2, "This is notes!")), 'Pending');
 // $trasnactions = $trasnaction->getByUserId(1);
 // print_r($trasnactions);

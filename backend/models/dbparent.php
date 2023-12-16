@@ -14,33 +14,41 @@ Class DBParent{
         
         $this->conn = Connect::makeConnection();
         
-
         // Create table if not exists
-        $sql = "";
-        $sql .= "create table if not exists " . $this->table . " (";
-        $sql .= "id int auto_increment PRIMARY KEY,";
-        foreach($this as $key => $value){
-            if($key == "id" || $key == "isDeleted" || $key == "table" || $key == "conn")
-                continue;
 
-            $type = "varchar(255)";
-
-            if(gettype($value) == "integer")
-                $type = "int";
-            else if(gettype($value) == "double")
-                $type = "float";
-            else if(gettype($value) == "boolean")
-                $type = "boolean";
-            else if(gettype($value) == "array")
-                $type = "json";
-
-            $sql .= $key . " " . $type . ",";
-        }
-        $sql .= "isDeleted boolean not null default false";
-        $sql .= ");";
-
+        // Check if table exists
+        $sql = "SELECT * FROM information_schema.tables WHERE table_schema = 'vishweb' AND table_name = '$this->table' LIMIT 1";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if(!$result){
+            $sql = "";
+            $sql .= "create table if not exists " . $this->table . " (";
+            $sql .= "id int auto_increment PRIMARY KEY,";
+            foreach($this as $key => $value){
+                if($key == "id" || $key == "isDeleted" || $key == "table" || $key == "conn")
+                    continue;
+
+                $type = "varchar(255)";
+
+                if(gettype($value) == "integer")
+                    $type = "int";
+                else if(gettype($value) == "double")
+                    $type = "float";
+                else if(gettype($value) == "boolean")
+                    $type = "boolean";
+                else if(gettype($value) == "array")
+                    $type = "json";
+
+                $sql .= $key . " " . $type . ",";
+            }
+            $sql .= "isDeleted boolean not null default false";
+            $sql .= ");";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+        }
     }
 
 
@@ -88,6 +96,30 @@ Class DBParent{
         return $objects;
     }
 
+    public function getAllWithLimit($limit){
+        $sql = "SELECT * FROM " . $this->table . " WHERE isDeleted = 0 LIMIT :limit";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        if(!$result)
+            return null;
+        
+        $objects = array();
+        foreach($result as $row){
+            $object = new $this;
+            foreach($row as $key => $value){
+                if(gettype($object->$key) == "array")
+                    $object->$key = json_decode($value);
+                else
+                    $object->$key = $value;
+            }
+            array_push($objects, $object);
+        }
+        return $objects;
+    }
+
     public function delete($id){
         $sql = "UPDATE " . $this->table . " SET isDeleted = 1 WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
@@ -115,6 +147,17 @@ Class DBParent{
         return $objects;
     }
 
+    public function getLastInsertedId(){
+        $sql = "SELECT id FROM " . $this->table . " ORDER BY id DESC LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if(!$result)
+            return null;
+
+        return $result['id'];
+    }
 
 }
 
