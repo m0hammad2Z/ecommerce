@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport Equipments Store</title>
+    <link rel="stylesheet" href="assest/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- header.html -->
+<div class="header">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a href="index.html"><img src="assest/images/Equipro.png" alt="logo" width="125px" height="70px"></a>
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </nav>
+            <a href="cart.html"><img src="assest/images/cart.png" width="30px" height="30px"></a>
+            <img src="assest/images/menu.png" class="menu-icon" onclick="menutoggle()">
+        </div>
+    <!-- Checkout Details -->
+    <div class="small-container checkout-page">
+        <h2>Checkout</h2>
+
+        <!-- Billing/Shipping Information Form -->
+        <form action="process_checkout.php" method="POST" id="checkoutForm">
+            <!-- Include form elements for billing/shipping information (e.g., name, address, etc.) -->
+
+            <!-- Order Summary -->
+            <h3>Order Summary</h3>
+            <table id="orderSummaryTable">
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+                <!-- The following rows will be dynamically generated using JavaScript based on the user's cart -->
+            </table>
+
+            <div class="total-price">
+                <table>
+                    <tr>
+                        <td>Subtotal</td>
+                        <td id="subtotal">$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Tax</td>
+                        <td id="tax">$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td id="total">$0.00</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Payment Information Form -->
+            <!-- Include form elements for payment information (e.g., credit card details) -->
+
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+
+
+</body>
+
+</html>
+
