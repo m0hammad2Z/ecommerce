@@ -22,7 +22,7 @@ if ($loggedInUser && md5($password) === $loggedInUser->password) {
         'name' => $loggedInUser->name,
         'email' => $loggedInUser->email,
         'role' => $loggedInUser->role,
-    ];
+    ];}
 
   // Redirect based on user role
   if ($user->getByrole == 'customer') {

@@ -1,6 +1,8 @@
 <?php 
 include_once 'backend/other/initial.php';
 
+allowed([Role::ADMIN, Role::GUEST, Role::USER], 'login.php');
+
 $user = new User();        
 $category = new Category();
 $product = new Product();

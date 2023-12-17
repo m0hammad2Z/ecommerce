@@ -2,6 +2,8 @@
 
 include_once(__DIR__ . '/../backend/other/initial.php');
 
+allowed([Role::ADMIN], '../login.php');
+
 $product = new Product();
 $products = $product->getAll();
 
