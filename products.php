@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product</title>
     <link rel="stylesheet" href="assest/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -15,15 +14,15 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <a href="index.html"><img src="images/logo.png" alt="logo" width="125px"></a>
+                <a href="index.html"><h1>EuiqPro</h1></a>
             </div>
             <nav>
                 <ul id="MenuItems">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index1.php">Home</a></li>
                     <li><a href="products.html">Products</a></li>
                     <li><a href="">About</a></li>
                     <li><a href="">Contact</a></li>
-                    <li><a href="account.html">Account</a></li>
+                    <li><a href="account.php">Account</a></li>
                 </ul>
             </nav>
             <a href="cart.html"><img src="assest/images/cart.png" width="30px" height="30px"></a>
@@ -31,15 +30,29 @@
         </div>
     </div>
 
-   
-
     <div class="small-container">
         <div class="row" id="product-container">
-            <!-- Product items will be dynamically added here -->
+            <?php
+            // Include the Product class file
+            require_once('admin/products.php');
+
+            // Create an instance of the Product class
+            $product = new Product();
+
+            // Fetch all products
+            $products = $product->getAll();
+
+            // Loop through products and display them
+            foreach ($products as $product) {
+                echo '<div class="col-4">';
+                echo '<img src="/path-to-your-images-folder/' . $product->image . '" width="200px" height="200px">';
+                echo '<h4>' . $product->name . '</h4>';
+                echo '<p>' . $product->description . '</p>';
+                echo '<p>' . $product->price . '</p>';
+                echo '</div>';
+            }
+            ?>
         </div>
-        <button onclick="addToCart('${product.name}', '${encodeURIComponent(JSON.stringify(product))}')">Add to Cart</button>
-
-
     </div>
 
     <!-- Footer -->
@@ -50,12 +63,12 @@
                     <h3>Download Our App</h3>
                     <p>Download App for Android and ios mobile phone.</p>
                     <div class="app-logo">
-                        <img src="images/play-store.png">
-                        <img src="images/app-store.png">
+                        <img src="/assest/images/app-store.png">
+                        <img src="/assest/images/play-store.png">
                     </div>
                 </div>
                 <div class="footer-col-2">
-                    <img src="images/logo-white.png">
+                    <h3>EquiPro</h3>
                     <p>Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.
                     </p>
                 </div>
@@ -97,7 +110,6 @@
             }
         }
     </script>
-    <script src="assest/js/product.js"></script>
 </body>
 
 </html>
