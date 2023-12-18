@@ -18,6 +18,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $totalPrice = 0;
 
     $orders = array();
+    if($jsonData == null){
+        echo '<script>alert("Cart is empty");</script>';
+        exit();
+    }
     foreach($jsonData as $item){
         
         $userId = $_SESSION['user']['id'];
@@ -33,6 +37,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     $transaction = new Transaction();
     $transaction->add($_SESSION['user']['id'], $totalPrice, $orders, 'pending');
+
+    //remove cart from the local storage
+    echo '<script>localStorage.removeItem("cart");</script>';
 
 }
 
@@ -107,7 +114,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 <form action="cart.php" method="POST">
     <input type="hidden" class="json-data" name="jsonData" value="0">
-    <button type="submit" class="btn pay-button" onclick="resetCart()">Pay</button>
+    <button type="submit" class="btn pay-button" onclick="">Pay</button>
 </form>
 
 
@@ -232,15 +239,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         localStorage.setItem('cart', JSON.stringify(newCart));
         loadItemsTable();
     }
-
-    function resetCart(){
-        localStorage.removeItem('cart');
-        loadItemsTable();
-    }
-
-
-
-
 
 </script>
 </body>

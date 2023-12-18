@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="assest/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+
 </head>
 
 <body>
@@ -18,7 +22,7 @@
             </div>
             <nav>
                 <ul id="MenuItems">
-                <li><a href="index.php">Home</a></li>
+                    <li><a href="index.php">Home</a></li>
                     <li><a href="products.php">Products</a></li>
                     <li><a href="account.php">Account</a></li>
                 </ul>
@@ -41,17 +45,16 @@
             // Create an instance of the Product class
             $product = new Product();
             $image = new Image();
-            
 
             // Fetch all products
             $products = $product->getAll();
 
             // Loop through products and display them
             foreach ($products as $product) {
-                
+
                 $img = $image->getOneByProductId($product->id);
 
-                if($img != null)
+                if ($img != null)
                     $product->image = $img->path;
                 else
                     $product->image = "https://images.pexels.com/photos/4562470/pexels-photo-4562470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
@@ -75,7 +78,7 @@
             <div class="row">
                 <div class="footer-col-1">
                     <h3>Download Our App</h3>
-                    <p>Download App for Android and ios mobile phone.</p>
+                    <p>Download App for Android and iOS mobile phone.</p>
                     <div class="app-logo">
                         <img src="/assest/images/app-store.png">
                         <img src="/assest/images/play-store.png">
@@ -97,6 +100,24 @@
                 </div>
                 <div class="footer-col-4">
                     <h3>Follow Us</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function addToCart(button) {
+            // Get the product data from the button's data attribute
+            var productData = button.getAttribute('data');
+
+            // Parse the JSON data
+            var product = JSON.parse(productData);
+        }
+    </script>
+</body>
+
+</html>
                     <ul>
                         <li>Facebook</li>
                         <li>Twitter</li>

@@ -123,7 +123,7 @@
                     echo '</div>';
                 }
                 ?>
-                <a href="products.html" class="btn ">View More &#8594;</a>
+                <a href="products.php" class="btn ">View More &#8594;</a>
             </div>
         </div>
 
