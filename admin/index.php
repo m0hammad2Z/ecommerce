@@ -2,11 +2,6 @@
 
 include_once(__DIR__ . '/../backend/other/initial.php');
 
-
-$_SESSION['user'] = [
-	'id' => 1, 'role' => Role::ADMIN, 'name' => 'Admin'
-];
-
 allowed([Role::ADMIN], '../index.php');
 
 

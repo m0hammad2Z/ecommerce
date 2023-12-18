@@ -47,6 +47,23 @@ class Image extends DBParent{
         return $images;
     }
 
+    public function getOneByProductId($productId){
+        $sql = "SELECT * FROM $this->table WHERE productId = :productId AND isDeleted = 0";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':productId', $productId);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if(!$result)
+            return null;
+        
+        $image = new Image();
+        $image->id = $result['id'];
+        $image->productId = $result['productId'];
+        $image->path = $result['path'];
+        return $image;
+    }
+
     public function getByPath($path){
         $sql = "SELECT * FROM $this->table WHERE path = :path AND isDeleted = 0";
         $stmt = $this->conn->prepare($sql);

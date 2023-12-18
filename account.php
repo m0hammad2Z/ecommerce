@@ -1,7 +1,17 @@
 
 <?php
-session_start();
 require_once './backend/other/initial.php';
+
+if(!isset($_SESSION['user'])) {
+    $_SESSION['user'] = [
+        'id' => 0,
+        'name' => '',
+        'email' => '',
+        'role' => Role::GUEST,
+    ];
+}
+
+allowed([Role::GUEST], 'index.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the login form is submitted
@@ -23,8 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
 
             // Redirect based on user role
-            if ($loggedInUser->role == 'customer') {
-                header('Location: index1.php');
+            if ($loggedInUser->role == Role::USER) {
+                header('Location: products.php');
             } else {
                 header('Location: admin/index.php');
             }
@@ -84,20 +94,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="container">
-        <div class="navbar">
+    <div class="navbar">
             <div class="logo">
-                <a href="index.html"><h1>EquiPro</h1></a>
+            <a href="index.php"><h1>EuiqPro</h1></a>
             </div>
             <nav>
                 <ul id="MenuItems">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="products.html">Products</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="products.php">Products</a></li>
                     <li><a href="account.php">Account</a></li>
                 </ul>
             </nav>
-            <a href="cart.html"><img src="assest/images/cart.png" width="30px" height="30px"></a>
+            <a href="cart.php"><img src="assest/images/cart.png" width="30px" height="30px"></a>
             <img src="assest/images/menu.png" class="menu-icon" onclick="menutoggle()">
         </div>
     </div>

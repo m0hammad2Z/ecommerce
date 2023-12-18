@@ -2,7 +2,7 @@
 
 include_once(__DIR__ . '/../backend/other/initial.php');
 
-allowed([Role::ADMIN], '../login.php');
+allowed([Role::ADMIN], '../index.php');
 
 $user = new User();
 $users = $user->getAll();
